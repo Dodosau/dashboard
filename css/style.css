@@ -82,57 +82,97 @@ body {
 }
 
 /* =========================
-   CALENDAR WIDGET
+   CALENDAR (Today + Upcoming)
    ========================= */
 
-.calRow{
-  display:flex;
-  align-items:center;
-  gap:14px;
+.calHeader{
+  font-weight:800;
+  font-size:20px;
+  margin-top:6px;
+  margin-bottom:10px;
+  letter-spacing:-0.2px;
+}
+
+.calBox{
+  padding:12px;
+  border-radius:16px;
+  background: rgba(255,255,255,0.06);
   margin-top:8px;
 }
 
-.calBadge{
-  min-width:120px;
-  height:90px;
-  border-radius:16px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
+.calSectionTitle{
   font-weight:800;
-  font-size:30px;
-  letter-spacing:-0.5px;
-  color:#fff;
-  background:#7c3aed; /* violet */
-  box-shadow: 0 10px 20px rgba(0,0,0,.18);
+  font-size:14px;
+  opacity:.9;
+  margin-bottom:10px;
 }
 
-.calBadge.soon{ background:#ef4444; }     /* < 60 min */
-.calBadge.today{ background:#f59e0b; }    /* aujourd’hui */
-.calBadge.later{ background:#16a34a; }    /* plus tard */
-.calBadge.na{ background:#64748b; }       /* pas d’événement */
+.calSectionTitleSmall{
+  margin-top:14px;
+  font-size:13px;
+  opacity:.8;
+}
 
-.calList{
-  margin-top:12px;
+.calTodayList{
   display:flex;
   flex-direction:column;
   gap:10px;
 }
 
-.calItem{
+.calTodayItem{
   padding:10px 12px;
   border-radius:14px;
   background: rgba(255,255,255,0.06);
 }
 
-.calTime{
+.calTodayTime{
   font-weight:800;
   font-size:14px;
-  margin-bottom:2px;
   opacity:.95;
+  margin-bottom:2px;
 }
 
-.calLine{
+.calTodayTitle{
   font-size:14px;
   opacity:.92;
+}
+
+.calUpcomingList{
+  margin-top:8px;
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+
+.calUpItem{
+  display:flex;
+  gap:10px;
+  align-items:flex-start;
+  padding:10px 12px;
+  border-radius:14px;
+  background: rgba(255,255,255,0.04);
+}
+
+.calUpDate{
+  min-width:74px;
+  font-weight:800;
+  font-size:12px;
+  opacity:.85;
+  line-height:1.1;
+}
+
+.calUpMain{
+  flex:1;
+}
+
+.calUpTime{
+  font-weight:800;
+  font-size:12px;
+  opacity:.9;
+  margin-bottom:2px;
+}
+
+.calUpTitle{
+  font-size:13px;
+  opacity:.9;
 }
