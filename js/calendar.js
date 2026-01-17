@@ -1,33 +1,18 @@
 // js/calendar.js
-// Widget calendrier basé sur ton Worker calendar: /api/calendar-upcoming?days=7
+// Affiche: Date du jour + événements du jour + prochains événements
 
 (() => {
   const CAL_WORKER_BASE = "https://calendar.doriansauzede.workers.dev";
-  const DAYS = 7;
-  const REFRESH_MS = 60_000; // 1 min
+  const REFRESH_MS = 60_000; // 1 minute
+  const UPCOMING_DAYS = 7;
+  const UPCOMING_MAX = 8;
 
-  const badge = document.getElementById("calNext");
-  const titleEl = document.getElementById("calTitle");
-  const whenEl = document.getElementById("calWhen");
-  const listEl = document.getElementById("calList");
+  const todayLabelEl = document.getElementById("calTodayLabel");
+  const todayListEl = document.getElementById("calTodayList");
+  const todayEmptyEl = document.getElementById("calTodayEmpty");
+  const upcomingListEl = document.getElementById("calUpcomingList");
 
-  if (!badge || !titleEl || !whenEl || !listEl) return;
-
-  function setBadge(text, cls) {
-    badge.textContent = text;
-    badge.classList.remove("soon", "today", "later", "na");
-    badge.classList.add(cls);
-  }
-
-  function fmtHHMM(unix) {
-    const d = new Date(unix * 1000);
-    return d.toLocaleTimeString("fr-CA", { hour: "2-digit", minute: "2-digit" });
-  }
-
-  function fmtDay(unix) {
-    const d = new Date(unix * 1000);
-    return d.toLocaleDateString("fr-CA", { weekday: "short", month: "short", day: "numeric" });
-  }
+  if (!todayLabelEl || !todayListEl || !todayEmptyEl || !upcomingListEl) return;
 
   function escapeHtml(s){
     return String(s).replace(/[&<>"']/g, c => ({
@@ -35,93 +20,121 @@
     }[c]));
   }
 
-  function isSameLocalDay(a, b) {
+  function fmtTodayHeader() {
+    const d = new Date();
+    return d.toLocaleDateString("fr-CA", {
+      weekday: "long",
+      year: "numeric",
+      month: "long",
+      day: "numeric"
+    });
+  }
+
+  function fmtHHMM(unix) {
+    const d = new Date(unix * 1000);
+    return d.toLocaleTimeString("fr-CA", { hour: "2-digit", minute: "2-digit" });
+  }
+
+  function fmtUpcomingDate(unix) {
+    const d = new Date(unix * 1000);
+    // "lun 20 jan"
+    return d.toLocaleDateString("fr-CA", { weekday: "short", month: "short", day: "numeric" });
+  }
+
+  function sameLocalDay(aUnix, bUnix) {
+    const a = new Date(aUnix * 1000);
+    const b = new Date(bUnix * 1000);
     return a.getFullYear() === b.getFullYear() &&
       a.getMonth() === b.getMonth() &&
       a.getDate() === b.getDate();
   }
 
-  function renderNext(events) {
-    const now = new Date();
+  function renderToday(events) {
+    todayListEl.innerHTML = "";
 
     if (!events || events.length === 0) {
-      setBadge("—", "na");
-      titleEl.textContent = "Rien à venir";
-      whenEl.textContent = "";
+      todayEmptyEl.style.display = "block";
       return;
     }
 
-    const ev = events[0];
-    const start = new Date(ev.startUnix * 1000);
-    const mins = Math.round((start.getTime() - now.getTime()) / 60000);
+    todayEmptyEl.style.display = "none";
 
-    // Badge text
-    if (mins <= 0) setBadge("Maint.", "soon");
-    else if (mins < 60) setBadge(`${mins} min`, "soon");
-    else {
-      const hours = Math.round(mins / 60);
-      setBadge(`${hours} h`, isSameLocalDay(start, now) ? "today" : "later");
+    for (const ev of events) {
+      const div = document.createElement("div");
+      div.className = "calTodayItem";
+
+      let timeText = ev.allDay ? "Toute la journée" : fmtHHMM(ev.startUnix);
+      if (!ev.allDay && ev.endUnix) timeText += ` – ${fmtHHMM(ev.endUnix)}`;
+
+      div.innerHTML = `
+        <div class="calTodayTime">${escapeHtml(timeText)}</div>
+        <div class="calTodayTitle">${escapeHtml(ev.title || "—")}</div>
+      `;
+
+      todayListEl.appendChild(div);
     }
-
-    titleEl.textContent = ev.title || "—";
-
-    const day = fmtDay(ev.startUnix);
-    const hhmm = fmtHHMM(ev.startUnix);
-    whenEl.textContent = `${day} • ${hhmm}`;
   }
 
-  function renderList(events) {
-    listEl.innerHTML = "";
+  function renderUpcoming(events) {
+    upcomingListEl.innerHTML = "";
 
-    if (!events || events.length === 0) return;
+    if (!events || events.length === 0) {
+      // pas besoin d’un message, tu as déjà le bloc "Aujourd’hui"
+      return;
+    }
 
-    // On affiche les 4 prochains (tu peux changer)
-    const slice = events.slice(0, 4);
+    const now = Math.floor(Date.now() / 1000);
+    const filtered = events
+      // garde seulement les events encore pertinents
+      .filter(ev => (ev.endUnix ?? ev.startUnix) >= now)
+      // retire ceux déjà dans "Aujourd’hui" (même jour)
+      .filter(ev => !sameLocalDay(ev.startUnix, now))
+      .slice(0, UPCOMING_MAX);
 
-    for (const ev of slice) {
+    for (const ev of filtered) {
       const div = document.createElement("div");
-      div.className = "calItem";
+      div.className = "calUpItem";
 
-      const lineTime = `${fmtDay(ev.startUnix)} • ${fmtHHMM(ev.startUnix)}`;
+      const dateLeft = fmtUpcomingDate(ev.startUnix);
+      const timeText = ev.allDay ? "Toute la journée" : fmtHHMM(ev.startUnix);
+
       div.innerHTML = `
-        <div class="calTime">${escapeHtml(lineTime)}</div>
-        <div class="calLine">${escapeHtml(ev.title || "—")}</div>
+        <div class="calUpDate">${escapeHtml(dateLeft)}</div>
+        <div class="calUpMain">
+          <div class="calUpTime">${escapeHtml(timeText)}</div>
+          <div class="calUpTitle">${escapeHtml(ev.title || "—")}</div>
+        </div>
       `;
-      listEl.appendChild(div);
+
+      upcomingListEl.appendChild(div);
     }
   }
 
   async function refresh() {
     try {
-      const url = `${CAL_WORKER_BASE}/api/calendar-upcoming?days=${encodeURIComponent(DAYS)}`;
-      const res = await fetch(url, { cache: "no-store" });
+      todayLabelEl.textContent = fmtTodayHeader();
 
-      if (!res.ok) {
-        setBadge("—", "na");
-        titleEl.textContent = `Calendrier indisponible`;
-        whenEl.textContent = `HTTP ${res.status}`;
-        listEl.innerHTML = "";
-        return;
-      }
+      // 1) Aujourd'hui
+      const todayRes = await fetch(`${CAL_WORKER_BASE}/api/calendar-today`, { cache: "no-store" });
+      const todayData = todayRes.ok ? await todayRes.json() : null;
 
-      const data = await res.json();
+      const todayEvents = (todayData && todayData.ok) ? (todayData.events || []) : [];
 
-      if (!data.ok) {
-        setBadge("—", "na");
-        titleEl.textContent = "Calendrier indisponible";
-        whenEl.textContent = "";
-        listEl.innerHTML = "";
-        return;
-      }
+      // 2) Prochains (7 jours)
+      const upRes = await fetch(`${CAL_WORKER_BASE}/api/calendar-upcoming?days=${encodeURIComponent(UPCOMING_DAYS)}`, { cache: "no-store" });
+      const upData = upRes.ok ? await upRes.json() : null;
 
-      const events = data.events || [];
-      renderNext(events);
-      renderList(events);
+      const upEvents = (upData && upData.ok) ? (upData.events || []) : [];
+
+      renderToday(todayEvents);
+      renderUpcoming(upEvents);
     } catch (e) {
-      setBadge("—", "na");
-      titleEl.textContent = "Calendrier indisponible";
-      whenEl.textContent = "Réseau";
-      listEl.innerHTML = "";
+      // fallback simple
+      todayLabelEl.textContent = fmtTodayHeader();
+      todayListEl.innerHTML = "";
+      todayEmptyEl.style.display = "block";
+      todayEmptyEl.textContent = "Calendrier indisponible (réseau)";
+      upcomingListEl.innerHTML = "";
     }
   }
 
