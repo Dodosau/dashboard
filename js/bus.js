@@ -1,67 +1,78 @@
-// js/bus.js
-// Affiche "Prochain bus dans X min" pour la STM (Bus 55) via ton Cloudflare Worker
+// js/bus.js (debug + affichage clair)
 
 (() => {
-  // ✅ Mets ici l’URL de ton Worker (sans slash final)
-  const WORKER_BASE = "https://stm-bus.doriansauzede.workers.dev";
-
-  // Stop St-Laurent / Rachel (ton stopId confirmé)
+  const WORKER_BASE = "https://stm-bus.doriansauzede.workers.dev"; // sans slash final
   const STOP_ID = "52103";
-
-  const REFRESH_MS = 30_000; // refresh toutes les 30 sec
+  const REFRESH_MS = 30_000;
 
   const el = document.getElementById("busNext");
   if (!el) return;
 
-  function setText(text) {
+  const endpoint = `${WORKER_BASE}/api/next55?stop=${encodeURIComponent(STOP_ID)}`;
+
+  function set(text) {
     el.textContent = text;
   }
 
-  async function refreshBus() {
+  async function refresh() {
+    set("Chargement…");
+
     try {
-      // Appel endpoint final
-      const url = `${WORKER_BASE}/api/next55?stop=${encodeURIComponent(STOP_ID)}`;
-      const res = await fetch(url, { cache: "no-store" });
+      const res = await fetch(endpoint, { cache: "no-store" });
 
-      // Si HTTP error
+      // Si le Worker répond mais pas en 200
       if (!res.ok) {
-        setText("Erreur API");
+        set(`STM indisponible (HTTP ${res.status})`);
         return;
       }
 
-      const data = await res.json();
+      // Si ça répond mais pas du JSON
+      let data;
+      try {
+        data = await res.json();
+      } catch {
+        const txt = await res.text();
+        set(`STM indisponible (réponse non-JSON)`);
+        console.log("Réponse brute:", txt);
+        return;
+      }
 
-      // Si Worker renvoie ok:false
       if (!data.ok) {
-        setText("Erreur");
+        set(`STM indisponible (${data.error || "ok=false"})`);
         return;
       }
 
-      // Pas de prédiction
       if (data.nextBusMinutes == null) {
-        setText("Aucune prévision");
+        set("Aucune prévision");
         return;
       }
 
       const m = Number(data.nextBusMinutes);
-
       if (!Number.isFinite(m)) {
-        setText("—");
+        set("STM indisponible (minutes invalides)");
         return;
       }
 
       if (m <= 0) {
-        setText("Maintenant");
+        set("Prochain bus: maintenant");
         return;
       }
 
-      setText(`Prochain bus dans ${m} min`);
+      // Optionnel: afficher aussi l’heure prévue
+      if (data.departureTimeUnix) {
+        const dt = new Date(data.departureTimeUnix * 1000);
+        const hh = dt.toLocaleTimeString("fr-CA", { hour: "2-digit", minute: "2-digit" });
+        set(`Prochain bus dans ${m} min (${hh})`);
+      } else {
+        set(`Prochain bus dans ${m} min`);
+      }
     } catch (e) {
-      setText("Erreur réseau");
+      // Si fetch échoue (offline, DNS, blocked, etc.)
+      set("STM indisponible (réseau)");
+      console.log("fetch error:", e);
     }
   }
 
-  // Run + interval
-  refreshBus();
-  setInterval(refreshBus, REFRESH_MS);
+  refresh();
+  setInterval(refresh, REFRESH_MS);
 })();
