@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Dashboard</title>
 
+  <!-- Reload sécurité toutes les heures -->
   <meta http-equiv="refresh" content="3600">
 
   <!-- CSS -->
@@ -12,16 +13,20 @@
 </head>
 
 <body>
+
 <div class="container">
 
+  <!-- Heure -->
   <div class="card">
     <div class="title">Maintenant</div>
     <div class="time" id="clock">--:--</div>
     <div class="date" id="date">—</div>
   </div>
 
+  <!-- Météo -->
   <div class="card">
     <div class="title">Météo – Montréal</div>
+
     <div class="weatherRow">
       <div class="icon" id="weatherIcon">—</div>
       <div>
@@ -29,6 +34,7 @@
         <div class="small" id="weatherText">—</div>
       </div>
     </div>
+
     <div class="kpiRow">
       <div class="kpi">
         <div class="kpiLabel">Risque de précipitation</div>
@@ -41,27 +47,28 @@
     </div>
   </div>
 
+  <!-- Mariage -->
   <div class="card">
     <div class="title">Mariage 💍</div>
     <div class="temp" id="weddingDays">—</div>
     <div class="small">jours avant le 17 juin 2026</div>
   </div>
 
+  <!-- STM Bus -->
+  <div class="card">
+    <div class="title">STM — Bus 55</div>
+    <div class="temp" id="busNext">—</div>
+    <div class="small">Arrêt Saint-Laurent / Rachel</div>
+  </div>
 
-<div class="card">
-  <div class="title">STM — Bus 55</div>
-  <div class="temp" id="busNext">—</div>
-  <div class="small">Arrêt Saint-Laurent / Rachel</div>
-</div>
-
-
-  
+  <!-- Trajet -->
   <div class="card">
     <div class="title">Trajet — Maison → Mila</div>
     <div class="small">
       267 rue Rachel Est → 6666 rue Saint-Urbain<br>
       Transport en commun (STM)
     </div>
+
     <div class="kpiRow">
       <a class="btn" id="gmTransit" href="#" target="_blank">🗺️ Itinéraire</a>
       <a class="btn" id="gmBus55" href="#" target="_blank">🚌 Bus 55</a>
@@ -70,10 +77,12 @@
 
 </div>
 
-<!-- JS -->
+<!-- JS (ordre important) -->
 <script src="js/clock.js"></script>
 <script src="js/weather.js"></script>
 <script src="js/wedding.js"></script>
 <script src="js/maps.js"></script>
+<script src="js/bus.js"></script>
+
 </body>
 </html>
