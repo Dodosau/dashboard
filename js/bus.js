@@ -1,75 +1,77 @@
-// js/bus.js (debug + affichage clair)
+// js/bus.js
+// Widget STM — Bus 55 (prochain + suivant)
 
 (() => {
-  const WORKER_BASE = "https://stm-bus.doriansauzede.workers.dev"; // sans slash final
+  const WORKER_BASE = "https://stm-bus.doriansauzede.workers.dev";
   const STOP_ID = "52103";
   const REFRESH_MS = 30_000;
 
-  const el = document.getElementById("busNext");
-  if (!el) return;
+  const badge = document.getElementById("busNext");
+  const following = document.getElementById("busFollowing");
+  if (!badge) return;
 
-  const endpoint = `${WORKER_BASE}/api/next55?stop=${encodeURIComponent(STOP_ID)}`;
+  const endpoint = `${WORKER_BASE}/api/next55-two?stop=${encodeURIComponent(STOP_ID)}`;
 
-  function set(text) {
-    el.textContent = text;
+  function setBadge(text, cls) {
+    badge.textContent = text;
+    badge.classList.remove("good", "warn", "bad", "na");
+    badge.classList.add(cls);
+  }
+
+  function colorClass(minutes) {
+    if (minutes == null) return "na";
+    if (minutes <= 5) return "good";
+    if (minutes <= 12) return "warn";
+    return "bad";
   }
 
   async function refresh() {
-    set("Chargement…");
-
     try {
       const res = await fetch(endpoint, { cache: "no-store" });
-
-      // Si le Worker répond mais pas en 200
       if (!res.ok) {
-        set(`STM indisponible (HTTP ${res.status})`);
+        setBadge("—", "na");
+        if (following) following.textContent = "STM indisponible";
         return;
       }
 
-      // Si ça répond mais pas du JSON
-      let data;
-      try {
-        data = await res.json();
-      } catch {
-        const txt = await res.text();
-        set(`STM indisponible (réponse non-JSON)`);
-        console.log("Réponse brute:", txt);
-        return;
-      }
-
+      const data = await res.json();
       if (!data.ok) {
-        set(`STM indisponible (${data.error || "ok=false"})`);
+        setBadge("—", "na");
+        if (following) following.textContent = "STM indisponible";
         return;
       }
 
-      if (data.nextBusMinutes == null) {
-        set("Aucune prévision");
+      const m1 = data.nextBusMinutes;
+      const m2 = data.nextBus2Minutes;
+
+      if (m1 == null) {
+        setBadge("—", "na");
+        if (following) following.textContent = "Aucune prévision";
         return;
       }
 
-      const m = Number(data.nextBusMinutes);
-      if (!Number.isFinite(m)) {
-        set("STM indisponible (minutes invalides)");
-        return;
-      }
+      const n1 = Number(m1);
+      const n2 = m2 == null ? null : Number(m2);
 
-      if (m <= 0) {
-        set("Prochain bus: maintenant");
-        return;
-      }
-
-      // Optionnel: afficher aussi l’heure prévue
-      if (data.departureTimeUnix) {
-        const dt = new Date(data.departureTimeUnix * 1000);
-        const hh = dt.toLocaleTimeString("fr-CA", { hour: "2-digit", minute: "2-digit" });
-        set(`Prochain bus dans ${m} min (${hh})`);
+      // Badge principal
+      if (n1 <= 0) {
+        setBadge("Maint.", "good");
       } else {
-        set(`Prochain bus dans ${m} min`);
+        setBadge(`${n1} min`, colorClass(n1));
       }
+
+      // Texte suivant
+      if (following) {
+        if (n2 == null || !Number.isFinite(n2)) {
+          following.textContent = "";
+        } else {
+          following.textContent = `Suivant : ${n2} min`;
+        }
+      }
+
     } catch (e) {
-      // Si fetch échoue (offline, DNS, blocked, etc.)
-      set("STM indisponible (réseau)");
-      console.log("fetch error:", e);
+      setBadge("—", "na");
+      if (following) following.textContent = "STM indisponible";
     }
   }
 
