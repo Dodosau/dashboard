@@ -17,14 +17,14 @@
 <div class="container">
 
   <!-- Heure -->
-  <div class="card">
+  <div class="card clock">
     <div class="title">Maintenant</div>
     <div class="time" id="clock">--:--</div>
     <div class="date" id="date">—</div>
   </div>
 
   <!-- Météo -->
-  <div class="card">
+  <div class="card weather">
     <div class="title">Météo – Montréal</div>
 
     <div class="weatherRow">
@@ -48,52 +48,42 @@
   </div>
 
   <!-- Mariage -->
-  <div class="card">
+  <div class="card wedding">
     <div class="title">Mariage 💍</div>
     <div class="temp" id="weddingDays">—</div>
     <div class="small">jours avant le 17 juin 2026</div>
   </div>
-<!-- STM Bus -->
-<div class="card">
-  <div class="title">STM — Bus 55</div>
 
-  <div class="busRow">
-    <div class="busBadge" id="busNext">—</div>
+  <!-- Calendrier -->
+  <div class="card calendar">
+    <div class="title">Aujourd’hui</div>
 
-    <div>
-      <div class="small" id="busFollowing">—</div>
-      <div class="small">Arrêt Saint-Laurent / Rachel</div>
+    <!-- Date du jour -->
+    <div class="calendarDate" id="calendarDate">—</div>
+
+    <!-- Événements du jour -->
+    <div class="calendarSection">
+      <div class="sectionTitle">Événements du jour</div>
+      <div id="calendarToday" class="calendarList">
+        <div class="small muted">Chargement…</div>
+      </div>
+    </div>
+
+    <!-- Prochains événements -->
+    <div class="calendarSection">
+      <div class="sectionTitle">À venir</div>
+      <div id="calendarUpcoming" class="calendarList small">
+        <div class="muted">—</div>
+      </div>
     </div>
   </div>
+
 </div>
 
-  
-<!-- Calendrier -->
-<div class="card">
-  <div class="title">Calendrier</div>
-
-  <div class="calHeader" id="calTodayLabel">—</div>
-
-  <!-- Aujourd'hui -->
-  <div class="calBox">
-    <div class="calSectionTitle">Aujourd’hui</div>
-    <div class="calTodayList" id="calTodayList"></div>
-    <div class="small" id="calTodayEmpty" style="display:none;">Rien de prévu aujourd’hui 🎉</div>
-  </div>
-
-  <!-- Prochains -->
-  <div class="calSectionTitle calSectionTitleSmall">Prochains</div>
-  <div class="calUpcomingList" id="calUpcomingList"></div>
-</div>
-
-  <div class="calList" id="calList"></div>
-</div>
 <!-- JS (ordre important) -->
 <script src="js/clock.js"></script>
 <script src="js/weather.js"></script>
 <script src="js/wedding.js"></script>
-<script src="js/maps.js"></script>
-<script src="js/bus.js"></script>
 <script src="js/calendar.js"></script>
 
 </body>
