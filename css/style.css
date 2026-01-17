@@ -39,3 +39,44 @@ body {
   border-radius: 12px;
   font-weight: 700;
 }
+/* =========================
+   STM BUS WIDGET
+   ========================= */
+
+.busRow{
+  display:flex;
+  align-items:center;
+  gap:14px;
+}
+
+.busBadge{
+  min-width:120px;
+  height:90px;
+  border-radius:16px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:800;
+  font-size:34px;
+  letter-spacing:-0.5px;
+  color:#fff;
+  background:#3b82f6; /* fallback */
+  box-shadow: 0 10px 20px rgba(0,0,0,.18);
+}
+
+/* Couleur selon délai */
+.busBadge.good{
+  background:#16a34a; /* vert */
+}
+
+.busBadge.warn{
+  background:#f59e0b; /* orange */
+}
+
+.busBadge.bad{
+  background:#ef4444; /* rouge */
+}
+
+.busBadge.na{
+  background:#64748b; /* gris */
+}
