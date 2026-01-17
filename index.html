@@ -5,294 +5,66 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Dashboard</title>
 
-  <!-- Recharge sécurité toutes les 60 min (Safari iOS ancien peut figer) -->
   <meta http-equiv="refresh" content="3600">
 
-  <style>
-    body {
-      margin: 0;
-      background: #0f1115;
-      color: #ffffff;
-      font-family: -apple-system, BlinkMacSystemFont, Arial, sans-serif;
-    }
-    .container {
-      padding: 24px;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 20px;
-    }
-    .card {
-      background: #171a21;
-      border-radius: 18px;
-      padding: 20px;
-    }
-    .title {
-      font-size: 16px;
-      color: #a7b0c0;
-      margin-bottom: 10px;
-    }
-    .time {
-      font-size: 56px;
-      font-weight: bold;
-      line-height: 1.05;
-    }
-    .date {
-      font-size: 20px;
-      color: #a7b0c0;
-      margin-top: 6px;
-    }
-    .weatherRow {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-    }
-    .icon {
-      font-size: 44px;
-      line-height: 1;
-    }
-    .temp {
-      font-size: 42px;
-      font-weight: bold;
-      line-height: 1.05;
-    }
-    .small {
-      color: #a7b0c0;
-      margin-top: 8px;
-      font-size: 16px;
-    }
-    .kpiRow {
-      display: flex;
-      gap: 16px;
-      margin-top: 10px;
-      flex-wrap: wrap;
-    }
-    .kpi {
-      background: rgba(167,176,192,0.08);
-      border-radius: 12px;
-      padding: 10px 12px;
-      min-width: 140px;
-    }
-    .kpiLabel {
-      color: #a7b0c0;
-      font-size: 14px;
-      margin-bottom: 4px;
-    }
-    .kpiValue {
-      font-size: 20px;
-      font-weight: 700;
-    }
-  </style>
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
-  <div class="container">
+<div class="container">
 
-    <!-- Heure -->
-    <div class="card">
-      <div class="title">Maintenant</div>
-      <div class="time" id="clock">--:--</div>
-      <div class="date" id="date">—</div>
-    </div>
-
-    <!-- Météo -->
-    <div class="card">
-      <div class="title">Météo – Montréal</div>
-
-      <div class="weatherRow">
-        <div class="icon" id="weatherIcon">—</div>
-        <div>
-          <div class="temp" id="tempNow">—°C</div>
-          <div class="small" id="weatherText">—</div>
-        </div>
-      </div>
-
-      <div class="kpiRow">
-        <div class="kpi">
-          <div class="kpiLabel">Risque de précipitation</div>
-          <div class="kpiValue" id="precipProb">—%</div>
-        </div>
-        <div class="kpi">
-          <div class="kpiLabel">Aujourd’hui (min / max)</div>
-          <div class="kpiValue" id="tempRange">—</div>
-        </div>
-      </div>
-
-      <div class="small" id="weatherMeta">Source: Open-Meteo</div>
-    </div>
-
-    <!-- Mariage -->
-    <div class="card">
-      <div class="title">Mariage 💍</div>
-      <div class="temp" id="weddingDays">—</div>
-      <div class="small">jours avant le 17 juin 2026</div>
-    </div>
-
+  <div class="card">
+    <div class="title">Maintenant</div>
+    <div class="time" id="clock">--:--</div>
+    <div class="date" id="date">—</div>
   </div>
 
-<script>
-  // =====================
-  // Heure / date
-  // =====================
-  function updateClock() {
-    var now = new Date();
-    document.getElementById("clock").textContent =
-      now.toLocaleTimeString("fr-CA", { hour: "2-digit", minute: "2-digit" });
+  <div class="card">
+    <div class="title">Météo – Montréal</div>
+    <div class="weatherRow">
+      <div class="icon" id="weatherIcon">—</div>
+      <div>
+        <div class="temp" id="tempNow">—°C</div>
+        <div class="small" id="weatherText">—</div>
+      </div>
+    </div>
+    <div class="kpiRow">
+      <div class="kpi">
+        <div class="kpiLabel">Risque de précipitation</div>
+        <div class="kpiValue" id="precipProb">—%</div>
+      </div>
+      <div class="kpi">
+        <div class="kpiLabel">Aujourd’hui</div>
+        <div class="kpiValue" id="tempRange">—</div>
+      </div>
+    </div>
+  </div>
 
-    document.getElementById("date").textContent =
-      now.toLocaleDateString("fr-CA", { weekday: "long", day: "numeric", month: "long" });
-  }
-  updateClock();
-  setInterval(updateClock, 1000);
+  <div class="card">
+    <div class="title">Mariage 💍</div>
+    <div class="temp" id="weddingDays">—</div>
+    <div class="small">jours avant le 17 juin 2026</div>
+  </div>
 
-  // =====================
-  // Mariage (J-xxx)
-  // =====================
-  function updateWeddingCountdown() {
-    var today = new Date();
-    var weddingDate = new Date("2026-06-17T00:00:00");
+  <div class="card">
+    <div class="title">Trajet — Maison → Mila</div>
+    <div class="small">
+      267 rue Rachel Est → 6666 rue Saint-Urbain<br>
+      Transport en commun (STM)
+    </div>
+    <div class="kpiRow">
+      <a class="btn" id="gmTransit" href="#" target="_blank">🗺️ Itinéraire</a>
+      <a class="btn" id="gmBus55" href="#" target="_blank">🚌 Bus 55</a>
+    </div>
+  </div>
 
-    today.setHours(0, 0, 0, 0);
-    weddingDate.setHours(0, 0, 0, 0);
+</div>
 
-    var diffTime = weddingDate - today;
-    var diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-
-    var el = document.getElementById("weddingDays");
-    if (!el) return;
-
-    if (diffDays > 0) el.textContent = diffDays;
-    else if (diffDays === 0) el.textContent = "C’est aujourd’hui 🎉";
-    else el.textContent = "Déjà mariés ❤️";
-  }
-  updateWeddingCountdown();
-  setInterval(updateWeddingCountdown, 60 * 60 * 1000);
-
-  // =====================
-  // Météo (Open-Meteo)
-  // =====================
-  var LAT = 45.5019;
-  var LON = -73.5674;
-
-  function pad2(n){ return (n < 10 ? "0" : "") + n; }
-
-  function toLocalHourKey(dateObj) {
-    // Format "YYYY-MM-DDTHH:00" en heure locale
-    var y = dateObj.getFullYear();
-    var m = pad2(dateObj.getMonth() + 1);
-    var d = pad2(dateObj.getDate());
-    var h = pad2(dateObj.getHours());
-    return y + "-" + m + "-" + d + "T" + h + ":00";
-  }
-
-  function weatherCodeToIcon(code) {
-    // Mapping Open-Meteo Weather Code -> emoji
-    // https://open-meteo.com/en/docs (codes WMO)
-    if (code === 0) return "☀️";
-    if (code === 1) return "🌤️";
-    if (code === 2) return "⛅️";
-    if (code === 3) return "☁️";
-    if (code === 45 || code === 48) return "🌫️";
-
-    if (code === 51 || code === 53 || code === 55) return "🌦️";
-    if (code === 56 || code === 57) return "🌧️";
-
-    if (code === 61 || code === 63 || code === 65) return "🌧️";
-    if (code === 66 || code === 67) return "🌧️";
-
-    if (code === 71 || code === 73 || code === 75) return "❄️";
-    if (code === 77) return "🌨️";
-
-    if (code === 80 || code === 81 || code === 82) return "🌧️";
-    if (code === 85 || code === 86) return "🌨️";
-
-    if (code === 95) return "⛈️";
-    if (code === 96 || code === 99) return "⛈️";
-
-    return "🌡️";
-  }
-
-  function weatherCodeToText(code) {
-    if (code === 0) return "Ensoleillé";
-    if (code === 1) return "Majoritairement ensoleillé";
-    if (code === 2) return "Partiellement nuageux";
-    if (code === 3) return "Couvert";
-    if (code === 45 || code === 48) return "Brouillard";
-
-    if (code === 51 || code === 53 || code === 55) return "Bruine";
-    if (code === 56 || code === 57) return "Bruine verglaçante";
-
-    if (code === 61 || code === 63 || code === 65) return "Pluie";
-    if (code === 66 || code === 67) return "Pluie verglaçante";
-
-    if (code === 71 || code === 73 || code === 75) return "Neige";
-    if (code === 77) return "Grains de neige";
-    if (code === 80 || code === 81 || code === 82) return "Averses";
-    if (code === 85 || code === 86) return "Averses de neige";
-
-    if (code === 95) return "Orage";
-    if (code === 96 || code === 99) return "Orage avec grêle";
-
-    return "Conditions variables";
-  }
-
-  function updateWeather() {
-    var url =
-      "https://api.open-meteo.com/v1/forecast" +
-      "?latitude=" + encodeURIComponent(LAT) +
-      "&longitude=" + encodeURIComponent(LON) +
-      "&current=temperature_2m,weather_code" +
-      "&hourly=precipitation_probability" +
-      "&daily=temperature_2m_min,temperature_2m_max" +
-      "&timezone=America%2FMontreal";
-
-    fetch(url)
-      .then(function(r){ return r.json(); })
-      .then(function(data){
-        if (!data || !data.current) return;
-
-        // Temp actuelle + code météo
-        var t = Math.round(data.current.temperature_2m);
-        var code = data.current.weather_code;
-
-        document.getElementById("tempNow").textContent = t + "°C";
-        document.getElementById("weatherIcon").textContent = weatherCodeToIcon(code);
-        document.getElementById("weatherText").textContent = weatherCodeToText(code);
-
-        // Min / Max
-        if (data.daily && data.daily.temperature_2m_min && data.daily.temperature_2m_max) {
-          var tmin = Math.round(data.daily.temperature_2m_min[0]);
-          var tmax = Math.round(data.daily.temperature_2m_max[0]);
-          document.getElementById("tempRange").textContent = tmin + "° / " + tmax + "°";
-        }
-
-        // Risque de précipitation (on prend l'heure la plus proche)
-        var prob = null;
-        if (data.hourly && data.hourly.time && data.hourly.precipitation_probability) {
-          var now = new Date();
-          var key = toLocalHourKey(now); // ex: 2026-01-16T14:00
-          var times = data.hourly.time;
-          var probs = data.hourly.precipitation_probability;
-
-          // Cherche l'index exact, sinon prend l'index le plus proche
-          var idx = -1;
-          for (var i = 0; i < times.length; i++) {
-            if (times[i] === key) { idx = i; break; }
-          }
-          if (idx === -1) idx = 0; // fallback simple
-          prob = probs[idx];
-        }
-
-        document.getElementById("precipProb").textContent =
-          (prob === null || prob === undefined) ? "—%" : (Math.round(prob) + "%");
-      })
-      .catch(function(){
-        document.getElementById("weatherMeta").textContent = "Erreur météo (réseau ?)";
-      });
-  }
-
-  updateWeather();
-  setInterval(updateWeather, 10 * 60 * 1000); // toutes les 10 min
-</script>
-
+<!-- JS -->
+<script src="js/clock.js"></script>
+<script src="js/weather.js"></script>
+<script src="js/wedding.js"></script>
+<script src="js/maps.js"></script>
 </body>
 </html>
