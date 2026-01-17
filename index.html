@@ -84,16 +84,21 @@
 </div>
 <!-- Calendrier -->
 <div class="card">
-  <div class="title">Calendrier — Prochain événement</div>
+  <div class="title">Calendrier</div>
 
-  <div class="calRow">
-    <div class="calBadge" id="calNext">—</div>
+  <div class="calHeader" id="calTodayLabel">—</div>
 
-    <div>
-      <div class="temp" id="calTitle">—</div>
-      <div class="small" id="calWhen">—</div>
-    </div>
+  <!-- Aujourd'hui -->
+  <div class="calBox">
+    <div class="calSectionTitle">Aujourd’hui</div>
+    <div class="calTodayList" id="calTodayList"></div>
+    <div class="small" id="calTodayEmpty" style="display:none;">Rien de prévu aujourd’hui 🎉</div>
   </div>
+
+  <!-- Prochains -->
+  <div class="calSectionTitle calSectionTitleSmall">Prochains</div>
+  <div class="calUpcomingList" id="calUpcomingList"></div>
+</div>
 
   <div class="calList" id="calList"></div>
 </div>
