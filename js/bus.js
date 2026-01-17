@@ -4,7 +4,9 @@
 (() => {
   const WORKER_BASE = "https://stm-bus.doriansauzede.workers.dev";
   const STOP_ID = "52103";
-  const REFRESH_MS = 30_000;
+
+  // 🔁 refresh toutes les 15 secondes
+  const REFRESH_MS = 15_000;
 
   const badge = document.getElementById("busNext");
   const following = document.getElementById("busFollowing");
@@ -18,11 +20,13 @@
     badge.classList.add(cls);
   }
 
+  // 🎨 règles de couleur demandées
   function colorClass(minutes) {
     if (minutes == null) return "na";
-    if (minutes <= 5) return "good";
-    if (minutes <= 12) return "warn";
-    return "bad";
+
+    if (minutes > 10) return "good";      // 🟢 plus de 10 min
+    if (minutes >= 8) return "warn";      // 🟠 entre 10 et 8 min
+    return "bad";                          // 🔴 moins de 8 min
   }
 
   async function refresh() {
@@ -55,12 +59,12 @@
 
       // Badge principal
       if (n1 <= 0) {
-        setBadge("Maint.", "good");
+        setBadge("Maint.", "bad");
       } else {
         setBadge(`${n1} min`, colorClass(n1));
       }
 
-      // Texte suivant
+      // Texte "suivant"
       if (following) {
         if (n2 == null || !Number.isFinite(n2)) {
           following.textContent = "";
