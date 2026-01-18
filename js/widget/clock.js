@@ -1,60 +1,40 @@
 // js/widget/clock.js
-(() => {
-  const STATE = {
-    timer: null,
-    mounted: false,
-  };
+export function initClock(root = document) {
+  const elTime = root.querySelector('[data-clock="time"]');
+  const elDate = root.querySelector('[data-clock="date"]');
 
-  function qs(id) {
-    return document.getElementById(id);
+  if (!elTime || !elDate) {
+    console.warn("[clock] éléments manquants (data-clock).");
+    return;
   }
 
-  function fmtTime(d) {
-    return d.toLocaleTimeString("fr-CA", {
-      hour: "2-digit",
-      minute: "2-digit",
-    });
-  }
+  const fmtTime = new Intl.DateTimeFormat("fr-CA", {
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+
+  const fmtDate = new Intl.DateTimeFormat("fr-CA", {
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+
+  let lastDayKey = "";
 
   function render() {
-    const el = qs("clock");
-    if (!el) return;
-    el.textContent = fmtTime(new Date());
-  }
+    const now = new Date();
+    elTime.textContent = fmtTime.format(now);
 
-  /**
-   * initClock()
-   * - Safe si appelé plusieurs fois
-   * - Ne démarre rien si le DOM n'a pas l'élément attendu
-   */
-  function initClock() {
-    const el = qs("clock");
-    if (!el) {
-      console.warn("[clock] #clock introuvable -> init ignoré");
-      return;
+    // clé simple pour détecter changement de jour
+    const dayKey = `${now.getFullYear()}-${now.getMonth()}-${now.getDate()}`;
+    if (dayKey !== lastDayKey) {
+      lastDayKey = dayKey;
+      elDate.textContent = fmtDate.format(now);
     }
-
-    // Evite double interval si init appelé 2 fois
-    if (STATE.timer) clearInterval(STATE.timer);
-
-    render(); // premier rendu immédiat
-    STATE.timer = setInterval(render, 1000);
-    STATE.mounted = true;
-
-    console.log("[clock] ok");
   }
 
-  /**
-   * destroyClock()
-   * - Utile si tu recharges le widget/HTML plus tard
-   */
-  function destroyClock() {
-    if (STATE.timer) clearInterval(STATE.timer);
-    STATE.timer = null;
-    STATE.mounted = false;
-  }
-
-  // Expose proprement au global
-  window.initClock = initClock;
-  window.destroyClock = destroyClock;
-})();
+  render();
+  // time update (chaque 10s suffit largement)
+  setInterval(render, 10_000);
+}
