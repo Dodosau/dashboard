@@ -62,9 +62,46 @@
     <div class="small muted">Arrêt Saint-Laurent / Rachel</div>
   </div>
 
-  <!-- Calendrier -->
-  <div class="card calendar">
+<!-- Calendrier -->
+<div class="card calendar">
+  <div class="titleRow">
     <div class="title">Calendrier</div>
+    <div class="chip" id="calendarDateChip">—</div>
+  </div>
+
+  <!-- AUJOURD'HUI -->
+  <div class="subCard">
+    <div class="subHeader">
+      <div class="subTitle">Aujourd’hui</div>
+      <div class="subMeta" id="calendarTodayMeta">—</div>
+    </div>
+    <div class="calCards" id="calendarToday">
+      <div class="small muted">Chargement…</div>
+    </div>
+  </div>
+
+  <!-- DEMAIN -->
+  <div class="subCard subtle">
+    <div class="subHeader">
+      <div class="subTitle">Demain</div>
+      <div class="subMeta" id="calendarTomorrowMeta">—</div>
+    </div>
+    <div class="calCards compact" id="calendarTomorrow">
+      <div class="small muted">—</div>
+    </div>
+  </div>
+
+  <!-- À VENIR (optionnel) -->
+  <div class="subCard subtle">
+    <div class="subHeader">
+      <div class="subTitle">À venir</div>
+      <div class="subMeta">7 jours</div>
+    </div>
+    <div class="calList" id="calendarUpcoming">
+      <div class="small muted">—</div>
+    </div>
+  </div>
+</div>
 
     <!-- Date du jour -->
     <div class="calendarDate" id="calendarDate">—</div>
