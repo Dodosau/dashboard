@@ -8,8 +8,15 @@
   <!-- Reload sécurité toutes les heures -->
   <meta http-equiv="refresh" content="3600">
 
-  <!-- CSS -->
-  <link rel="stylesheet" href="css/style.css">
+  <!-- CSS (ordre important : base -> layout -> widgets) -->
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+
+  <link rel="stylesheet" href="css/widgets/clock.css">
+  <link rel="stylesheet" href="css/widgets/weather.css">
+  <link rel="stylesheet" href="css/widgets/wedding.css">
+  <link rel="stylesheet" href="css/widgets/bus.css">
+  <link rel="stylesheet" href="css/widgets/calendar.css">
 </head>
 
 <body>
@@ -58,13 +65,15 @@
   <div class="card bus">
     <div class="title">STM — Bus 55</div>
 
-    <!-- Le gros chiffre -->
-    <div class="temp" id="busNext">—</div>
-
-    <!-- Le suivant -->
-    <div class="small" id="busNext2"></div>
-
-    <div class="small muted">Arrêt Saint-Laurent / Rachel</div>
+    <!-- Le carré coloré (rempli par bus.js) -->
+    <div class="busRow">
+      <div class="busBadge na" id="busBadge">—</div>
+      <div>
+        <div class="small" style="margin-top:0" id="busNextText">Chargement…</div>
+        <div class="small" id="busNext2Text"></div>
+        <div class="small" style="opacity:.8">Arrêt Saint-Laurent / Rachel</div>
+      </div>
+    </div>
   </div>
 
   <!-- CALENDRIER — AUJOURD’HUI (RECTANGLE UNIQUE) -->
