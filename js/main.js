@@ -1,4 +1,9 @@
-// js/main.js
+/**
+ * main.js
+ * Charge les scripts widgets APRÈS injection HTML (include.js),
+ * puis appelle initX().
+ */
+
 (() => {
   const WIDGET_SCRIPTS = [
     "js/widget/clock.js",
@@ -20,23 +25,23 @@
   }
 
   async function boot() {
-    // 1) attendre l’injection HTML
+    // attendre include.js
     if (!window.__WIDGETS_READY__) {
       await new Promise((resolve) =>
         window.addEventListener("widgets:ready", resolve, { once: true })
       );
     }
 
-    // 2) charger les scripts
+    // charger scripts
     for (const src of WIDGET_SCRIPTS) {
       try {
         await loadScript(src);
       } catch (err) {
-        console.error("❌ Script load error:", err);
+        console.error("❌ Widget script error:", err);
       }
     }
 
-    // 3) init explicites (ultra lisible)
+    // init
     try { window.initClock?.(); } catch (e) { console.error(e); }
     try { window.initWeather?.(); } catch (e) { console.error(e); }
     try { window.initWedding?.(); } catch (e) { console.error(e); }
