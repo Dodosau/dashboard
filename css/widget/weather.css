@@ -1,0 +1,8 @@
+.weatherRow { display: flex; align-items: center; gap: 14px; }
+.icon { font-size: 44px; }
+.temp { font-size: 42px; font-weight: bold; }
+
+.kpiRow { display: flex; gap: 16px; margin-top: 10px; flex-wrap: wrap; }
+.kpi { background: rgba(167,176,192,0.08); border-radius: 12px; padding: 10px 12px; min-width: 140px; }
+.kpiLabel { color: #a7b0c0; font-size: 14px; }
+.kpiValue { font-size: 20px; font-weight: 700; }
