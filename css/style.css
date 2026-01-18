@@ -81,133 +81,73 @@ body {
   background:#64748b; /* gris */
 }
 
-/* ====== CALENDAR UI ====== */
-.titleRow{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:12px;
+/* ===== TODAY CALENDAR ===== */
+.calendar.today-only {
+  display: flex;
+  flex-direction: column;
 }
 
-.chip{
+.todayHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.todayDate {
   font-size: 14px;
-  padding: 6px 10px;
-  border-radius: 999px;
-  border: 1px solid rgba(255,255,255,0.12);
-  background: rgba(255,255,255,0.06);
-}
-
-.subCard{
-  margin-top: 12px;
-  padding: 12px;
-  border-radius: 16px;
-  border: 1px solid rgba(255,255,255,0.12);
-  background: rgba(255,255,255,0.06);
-}
-
-.subCard.subtle{
-  background: rgba(255,255,255,0.03);
-}
-
-.subHeader{
-  display:flex;
-  align-items:baseline;
-  justify-content:space-between;
-  gap:10px;
-  margin-bottom: 10px;
-}
-
-.subTitle{
-  font-size: 16px;
-  font-weight: 700;
-}
-
-.subMeta{
-  font-size: 13px;
   opacity: 0.75;
 }
 
-.calCards{
-  display:flex;
-  flex-direction:column;
-  gap:10px;
-}
-
-.calCards.compact{
-  gap:8px;
-}
-
-.eventCard{
-  border-radius: 14px;
-  padding: 10px 12px;
-  border: 1px solid rgba(255,255,255,0.10);
-  background: rgba(0,0,0,0.12);
-}
-
-.eventTop{
-  display:flex;
-  align-items:flex-start;
-  justify-content:space-between;
-  gap:10px;
-}
-
-.eventTitle{
+.todayBadge {
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 13px;
   font-weight: 700;
+  border: 1px solid transparent;
+}
+
+/* Badge couleurs */
+.badge-green {
+  background: rgba(0, 200, 120, 0.15);
+  border-color: rgba(0, 200, 120, 0.4);
+  color: #9ff0c9;
+}
+
+.badge-orange {
+  background: rgba(255, 170, 0, 0.15);
+  border-color: rgba(255, 170, 0, 0.4);
+  color: #ffd18a;
+}
+
+.badge-red {
+  background: rgba(255, 80, 80, 0.15);
+  border-color: rgba(255, 80, 80, 0.4);
+  color: #ffb3b3;
+}
+
+.todayEvents {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.todayEvent {
+  display: grid;
+  grid-template-columns: 70px 1fr;
+  gap: 12px;
+  padding: 10px 12px;
+  border-radius: 14px;
+  background: rgba(0, 0, 0, 0.18);
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+.eventTime {
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.eventTitle {
+  font-weight: 600;
   line-height: 1.2;
 }
-
-.eventTime{
-  font-variant-numeric: tabular-nums;
-  opacity: 0.9;
-  white-space: nowrap;
-}
-
-.eventLoc{
-  margin-top: 4px;
-  font-size: 13px;
-  opacity: 0.75;
-}
-
-.eventBadge{
-  display:inline-block;
-  margin-top: 8px;
-  font-size: 12px;
-  padding: 4px 8px;
-  border-radius: 999px;
-  border: 1px solid rgba(255,255,255,0.12);
-  background: rgba(255,255,255,0.06);
-  opacity: 0.9;
-}
-
-.calList{
-  display:flex;
-  flex-direction:column;
-  gap:8px;
-}
-
-.calRow{
-  display:grid;
-  grid-template-columns: 90px 1fr;
-  gap:10px;
-  padding: 8px 10px;
-  border-radius: 12px;
-  border: 1px solid rgba(255,255,255,0.08);
-  background: rgba(0,0,0,0.10);
-}
-
-.calLeft{
-  font-size: 12px;
-  opacity: 0.75;
-}
-
-.calRight{
-  font-size: 13px;
-}
-
-.calTime{
-  font-variant-numeric: tabular-nums;
-  font-weight: 700;
-  margin-right: 8px;
-}
-
-.muted{ opacity: 0.65; }
