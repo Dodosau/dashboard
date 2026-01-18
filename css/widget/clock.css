@@ -1,2 +1,14 @@
-.time { font-size: 56px; font-weight: bold; }
-.date { font-size: 20px; color: #a7b0c0; margin-top: 6px; }
+/* Widget Horloge: juste l'heure, très gros, centré */
+.clockOnly{
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.clockTime{
+  font-size: 96px;          /* très gros */
+  font-weight: 900;
+  letter-spacing: -2px;
+  line-height: 1;
+}
