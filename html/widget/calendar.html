@@ -1,13 +1,22 @@
-<div class="card calendar today-only">
+<div class="calendar today-only">
+  <div class="title">Calendrier</div>
+
+  <!-- AUJOURD'HUI -->
   <div class="todayHeader">
     <div>
-      <div class="title">Aujourd’hui</div>
-      <div class="todayDate" id="calendarDate">—</div>
+      <div class="calH1">Aujourd’hui</div>
+      <div class="todayDate" id="calTodayDate">—</div>
     </div>
-    <div class="todayBadge" id="calendarBadge">—</div>
+    <div class="todayBadge badge-green" id="calTodayBadge">—</div>
   </div>
 
-  <div class="todayEvents" id="calendarToday">
-    <div class="small muted">Chargement…</div>
+  <div class="todayEvents" id="calTodayEvents">
+    <div class="small">Chargement...</div>
+  </div>
+
+  <!-- PROCHAINS JOURS -->
+  <div class="calSectionTitle">Prochains jours</div>
+  <div class="nextDays" id="calNextDays">
+    <div class="small">—</div>
   </div>
 </div>
