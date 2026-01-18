@@ -1,50 +1,37 @@
+/* css/layout.css */
+
 .container {
   padding: 24px;
   display: grid;
-
-  /* Gauche widgets / Droite calendrier */
-  grid-template-columns: 1fr 1.35fr;
-
-  /* 4 blocs à gauche */
-  grid-template-rows: auto auto auto auto;
-
+  grid-template-columns: 1fr 1.1fr; /* gauche + calendrier un peu plus large */
   gap: 20px;
 
-  /* Pleine hauteur écran */
-  height: 100vh;
+  /* 4 lignes à gauche, calendrier à droite sur toutes les lignes */
+  grid-template-areas:
+    "clock    calendar"
+    "weather  calendar"
+    "wedding  calendar"
+    "bus      calendar";
 
-  /* Autorise scroll dans enfants grid */
-  min-height: 0;
+  /* optionnel : pour forcer les lignes à se répartir */
+  grid-auto-rows: minmax(140px, auto);
 }
 
-/* Placement explicite */
-.clock   { grid-column: 1; grid-row: 1; }
-.weather { grid-column: 1; grid-row: 2; }
-.wedding { grid-column: 1; grid-row: 3; }
-.bus     { grid-column: 1; grid-row: 4; }
+/* Les “slots” (cartes) */
+.slot-clock   { grid-area: clock; }
+.slot-weather { grid-area: weather; }
+.slot-wedding { grid-area: wedding; }
+.slot-bus     { grid-area: bus; }
+.slot-calendar{ grid-area: calendar; }
 
-/* Calendrier plein hauteur à droite */
-.calendar {
-  grid-column: 2;
-  grid-row: 1 / 5;
-  overflow-y: auto;
-  min-height: 0; /* crucial */
+/* Calendrier sur toute la hauteur de la colonne */
+.slot-calendar {
+  align-self: stretch;   /* prend toute la hauteur dispo */
+  height: 100%;
+  display: flex;         /* utile si ton contenu calendrier doit scroller */
 }
 
-/* Responsive */
-@media (max-width: 900px) {
-  .container {
-    grid-template-columns: 1fr;
-    grid-template-rows: auto;
-    height: auto;
-    min-height: auto;
-  }
-  .clock, .weather, .wedding, .bus, .calendar {
-    grid-column: 1;
-    grid-row: auto;
-  }
-  .calendar {
-    overflow-y: visible;
-    min-height: auto;
-  }
+/* Si tu veux que le contenu du calendrier puisse défiler sans casser la page */
+.slot-calendar > * {
+  width: 100%;
 }
