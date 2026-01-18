@@ -1,13 +1,14 @@
-/* Widget Horloge: juste l'heure, très gros, centré */
-.clockOnly{
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+/* css/widget/clock.css */
+
+.clockCard{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  min-height: 180px; /* ajuste selon ton layout */
 }
 
-.clockTime{
-  font-size: 96px;          /* très gros */
+.clockBig{
+  font-size: 82px;
   font-weight: 900;
   letter-spacing: -2px;
   line-height: 1;
