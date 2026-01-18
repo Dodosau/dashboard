@@ -1,15 +1,14 @@
-/* ===== CLOCK WIDGET ===== */
+window.initClock = function initClock() {
+  const el = document.getElementById("clock");
+  if (!el) return;
 
-.clock {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+  function pad(n) { return String(n).padStart(2, "0"); }
 
-.clockBig {
-  font-size: clamp(72px, 10vw, 120px);
-  font-weight: 900;
-  letter-spacing: -2px;
-  line-height: 1;
-  text-align: center;
-}
+  function tick() {
+    const d = new Date();
+    el.textContent = `${pad(d.getHours())}:${pad(d.getMinutes())}`;
+  }
+
+  tick();
+  setInterval(tick, 1000);
+};
