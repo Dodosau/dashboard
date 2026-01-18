@@ -1,8 +1,10 @@
 window.initClock = function initClock() {
   const el = document.getElementById("clock");
-  if (!el) return;
+  if (!el) return; // si l'include n'est pas encore chargé
 
-  function pad(n) { return String(n).padStart(2, "0"); }
+  function pad(n) {
+    return String(n).padStart(2, "0");
+  }
 
   function tick() {
     const d = new Date();
