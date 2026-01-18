@@ -1,0 +1,50 @@
+.container {
+  padding: 24px;
+  display: grid;
+
+  /* Gauche widgets / Droite calendrier */
+  grid-template-columns: 1fr 1.35fr;
+
+  /* 4 blocs à gauche */
+  grid-template-rows: auto auto auto auto;
+
+  gap: 20px;
+
+  /* Pleine hauteur écran */
+  height: 100vh;
+
+  /* Autorise scroll dans enfants grid */
+  min-height: 0;
+}
+
+/* Placement explicite */
+.clock   { grid-column: 1; grid-row: 1; }
+.weather { grid-column: 1; grid-row: 2; }
+.wedding { grid-column: 1; grid-row: 3; }
+.bus     { grid-column: 1; grid-row: 4; }
+
+/* Calendrier plein hauteur à droite */
+.calendar {
+  grid-column: 2;
+  grid-row: 1 / 5;
+  overflow-y: auto;
+  min-height: 0; /* crucial */
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .container {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    height: auto;
+    min-height: auto;
+  }
+  .clock, .weather, .wedding, .bus, .calendar {
+    grid-column: 1;
+    grid-row: auto;
+  }
+  .calendar {
+    overflow-y: visible;
+    min-height: auto;
+  }
+}
