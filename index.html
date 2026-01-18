@@ -2,35 +2,80 @@
 <html lang="fr">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Dashboard</title>
 
-  <!-- Reload sécurité toutes les heures -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Reload de sécurité toutes les heures -->
   <meta http-equiv="refresh" content="3600">
 
-  <!-- CSS (ordre important : base -> layout -> widgets) -->
+  <!-- =========================
+       CSS
+       ========================= -->
+  <!-- Base & layout -->
   <link rel="stylesheet" href="css/base.css">
   <link rel="stylesheet" href="css/layout.css">
 
-  <link rel="stylesheet" href="css/widgets/clock.css">
-  <link rel="stylesheet" href="css/widgets/weather.css">
-  <link rel="stylesheet" href="css/widgets/wedding.css">
-  <link rel="stylesheet" href="css/widgets/bus.css">
-  <link rel="stylesheet" href="css/widgets/calendar.css">
+  <!-- Widgets -->
+  <link rel="stylesheet" href="css/widget/clock.css">
+  <link rel="stylesheet" href="css/widget/weather.css">
+  <link rel="stylesheet" href="css/widget/wedding.css">
+  <link rel="stylesheet" href="css/widget/bus.css">
+  <link rel="stylesheet" href="css/widget/calendar.css">
 </head>
 
 <body>
+
+  <!-- =========================
+       CONTAINER GRID
+       ========================= -->
   <div class="container">
-    <div data-include="widgets/clock.html"></div>
-    <div data-include="widgets/weather.html"></div>
-    <div data-include="widgets/wedding.html"></div>
-    <div data-include="widgets/bus.html"></div>
-    <div data-include="widgets/calendar.html"></div>
+
+    <!-- ===== COLONNE GAUCHE ===== -->
+    <div class="leftColumn">
+
+      <!-- Horloge -->
+      <div class="card" data-include="html/widget/clock.html"></div>
+
+      <!-- Météo -->
+      <div class="card" data-include="html/widget/weather.html"></div>
+
+      <!-- Mariage -->
+      <div class="card" data-include="html/widget/wedding.html"></div>
+
+      <!-- STM -->
+      <div class="card" data-include="html/widget/bus.html"></div>
+
+    </div>
+
+    <!-- ===== COLONNE DROITE ===== -->
+    <div class="rightColumn">
+
+      <!-- Calendrier (toute la hauteur) -->
+      <div class="card calendarCard" data-include="html/widget/calendar.html"></div>
+
+    </div>
+
   </div>
 
-  <!-- Injecte les widgets HTML -->
+  <!-- =========================
+       JS
+       ========================= -->
+
+  <!-- Config globale -->
+  <script src="js/config.js"></script>
+
+  <!-- HTML includes (doit venir AVANT main.js) -->
   <script src="js/include.js"></script>
-  <!-- Lance les scripts widgets après injection -->
+
+  <!-- Orchestration -->
   <script src="js/main.js"></script>
+
+  <!-- Widgets -->
+  <script src="js/widget/clock.js" defer></script>
+  <script src="js/widget/weather.js" defer></script>
+  <script src="js/widget/wedding.js" defer></script>
+  <script src="js/widget/bus.js" defer></script>
+  <script src="js/widget/calendar.js" defer></script>
+
 </body>
 </html>
