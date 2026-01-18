@@ -1,9 +1,36 @@
-<div class="container">
-  <div data-include="widgets/clock.html"></div>
-  <div data-include="widgets/weather.html"></div>
-  <div data-include="widgets/wedding.html"></div>
-  <div data-include="widgets/bus.html"></div>
-  <div data-include="widgets/calendar.html"></div>
-</div>
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dashboard</title>
 
-<script src="js/include.js"></script>
+  <!-- Reload sécurité toutes les heures -->
+  <meta http-equiv="refresh" content="3600">
+
+  <!-- CSS (ordre important : base -> layout -> widgets) -->
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+
+  <link rel="stylesheet" href="css/widgets/clock.css">
+  <link rel="stylesheet" href="css/widgets/weather.css">
+  <link rel="stylesheet" href="css/widgets/wedding.css">
+  <link rel="stylesheet" href="css/widgets/bus.css">
+  <link rel="stylesheet" href="css/widgets/calendar.css">
+</head>
+
+<body>
+  <div class="container">
+    <div data-include="widgets/clock.html"></div>
+    <div data-include="widgets/weather.html"></div>
+    <div data-include="widgets/wedding.html"></div>
+    <div data-include="widgets/bus.html"></div>
+    <div data-include="widgets/calendar.html"></div>
+  </div>
+
+  <!-- Injecte les widgets HTML -->
+  <script src="js/include.js"></script>
+  <!-- Lance les scripts widgets après injection -->
+  <script src="js/main.js"></script>
+</body>
+</html>
