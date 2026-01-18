@@ -1,37 +1,35 @@
 /* css/layout.css */
 
-.container {
-  padding: 24px;
-  display: grid;
-  grid-template-columns: 1fr 1.1fr; /* gauche + calendrier un peu plus large */
-  gap: 20px;
+.container{
+  padding:24px;
+  display:grid;
+  grid-template-columns: 1fr 1.1fr;
+  gap:20px;
 
-  /* 4 lignes à gauche, calendrier à droite sur toutes les lignes */
-  grid-template-areas:
-    "clock    calendar"
-    "weather  calendar"
-    "wedding  calendar"
-    "bus      calendar";
-
-  /* optionnel : pour forcer les lignes à se répartir */
-  grid-auto-rows: minmax(140px, auto);
+  /* 2 colonnes full height */
+  align-items: stretch;
 }
 
-/* Les “slots” (cartes) */
-.slot-clock   { grid-area: clock; }
-.slot-weather { grid-area: weather; }
-.slot-wedding { grid-area: wedding; }
-.slot-bus     { grid-area: bus; }
-.slot-calendar{ grid-area: calendar; }
-
-/* Calendrier sur toute la hauteur de la colonne */
-.slot-calendar {
-  align-self: stretch;   /* prend toute la hauteur dispo */
+/* Colonne gauche : pile verticale qui prend toute la hauteur */
+.leftCol{
+  display:flex;
+  flex-direction:column;
+  gap:20px;
   height: 100%;
-  display: flex;         /* utile si ton contenu calendrier doit scroller */
 }
 
-/* Si tu veux que le contenu du calendrier puisse défiler sans casser la page */
-.slot-calendar > * {
-  width: 100%;
+/* Chaque carte à gauche peut "respirer" sans forcer */
+.leftCol .card{
+  flex: 0 0 auto;
+}
+
+/* Colonne droite : calendrier full height */
+.rightCol{
+  height:100%;
+  display:flex;
+}
+.rightCol .card{
+  width:100%;
+  height:100%;
+  display:flex; /* pour structurer le contenu interne du calendrier */
 }
