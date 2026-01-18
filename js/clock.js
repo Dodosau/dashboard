@@ -1,7 +1,15 @@
-function updateClock() {
-  var n = new Date();
-  clock.textContent = n.toLocaleTimeString("fr-CA",{hour:"2-digit",minute:"2-digit"});
-  date.textContent = n.toLocaleDateString("fr-CA",{weekday:"long",day:"numeric",month:"long"});
+/* ===== CLOCK WIDGET ===== */
+
+.clock {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-updateClock();
-setInterval(updateClock,1000);
+
+.clockBig {
+  font-size: clamp(72px, 10vw, 120px);
+  font-weight: 900;
+  letter-spacing: -2px;
+  line-height: 1;
+  text-align: center;
+}
