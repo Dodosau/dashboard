@@ -1,7 +1,21 @@
-/* ===== TODAY CALENDAR ===== */
+/* ===== CALENDAR ===== */
+
 .calendar.today-only {
   display: flex;
   flex-direction: column;
+  height: 100%;
+}
+
+.calH1{
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.calSectionTitle{
+  margin-top: 14px;
+  font-size: 14px;
+  color: #a7b0c0;
+  opacity: 0.9;
 }
 
 .todayHeader {
@@ -22,6 +36,7 @@
   font-size: 13px;
   font-weight: 700;
   border: 1px solid transparent;
+  white-space: nowrap;
 }
 
 /* Badge couleurs */
@@ -51,7 +66,7 @@
 
 .todayEvent {
   display: grid;
-  grid-template-columns: 70px 1fr;
+  grid-template-columns: 74px 1fr;
   gap: 12px;
   padding: 10px 12px;
   border-radius: 14px;
@@ -60,11 +75,77 @@
 }
 
 .eventTime {
-  font-weight: 700;
+  font-weight: 800;
   font-variant-numeric: tabular-nums;
 }
 
 .eventTitle {
-  font-weight: 600;
+  font-weight: 650;
+  line-height: 1.2;
+}
+
+.eventMeta{
+  color:#a7b0c0;
+  font-size: 13px;
+  margin-top: 2px;
+}
+
+/* Prochains jours */
+.nextDays{
+  display:flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.nextDayBlock{
+  background: rgba(167,176,192,0.08);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 14px;
+  padding: 10px 12px;
+}
+
+.nextDayHeader{
+  display:flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.nextDayDate{
+  font-weight: 800;
+  font-size: 14px;
+  color:#fff;
+}
+
+.nextDayCount{
+  font-size: 12px;
+  color:#a7b0c0;
+}
+
+.nextDayEvents{
+  display:flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.nextEventRow{
+  display:grid;
+  grid-template-columns: 66px 1fr;
+  gap: 10px;
+  padding: 8px 10px;
+  border-radius: 12px;
+  background: rgba(0,0,0,0.14);
+  border: 1px solid rgba(255,255,255,0.06);
+}
+
+.nextEventTime{
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  color:#e5e7eb;
+}
+
+.nextEventTitle{
+  font-weight: 650;
   line-height: 1.2;
 }
