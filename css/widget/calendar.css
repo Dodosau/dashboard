@@ -1,0 +1,70 @@
+/* ===== TODAY CALENDAR ===== */
+.calendar.today-only {
+  display: flex;
+  flex-direction: column;
+}
+
+.todayHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.todayDate {
+  font-size: 14px;
+  opacity: 0.75;
+}
+
+.todayBadge {
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 700;
+  border: 1px solid transparent;
+}
+
+/* Badge couleurs */
+.badge-green {
+  background: rgba(0, 200, 120, 0.15);
+  border-color: rgba(0, 200, 120, 0.4);
+  color: #9ff0c9;
+}
+
+.badge-orange {
+  background: rgba(255, 170, 0, 0.15);
+  border-color: rgba(255, 170, 0, 0.4);
+  color: #ffd18a;
+}
+
+.badge-red {
+  background: rgba(255, 80, 80, 0.15);
+  border-color: rgba(255, 80, 80, 0.4);
+  color: #ffb3b3;
+}
+
+.todayEvents {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.todayEvent {
+  display: grid;
+  grid-template-columns: 70px 1fr;
+  gap: 12px;
+  padding: 10px 12px;
+  border-radius: 14px;
+  background: rgba(0, 0, 0, 0.18);
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+.eventTime {
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.eventTitle {
+  font-weight: 600;
+  line-height: 1.2;
+}
