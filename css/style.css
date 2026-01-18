@@ -81,98 +81,133 @@ body {
   background:#64748b; /* gris */
 }
 
-/* =========================
-   CALENDAR (Today + Upcoming)
-   ========================= */
-
-.calHeader{
-  font-weight:800;
-  font-size:20px;
-  margin-top:6px;
-  margin-bottom:10px;
-  letter-spacing:-0.2px;
+/* ====== CALENDAR UI ====== */
+.titleRow{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
 }
 
-.calBox{
-  padding:12px;
-  border-radius:16px;
+.chip{
+  font-size: 14px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.12);
   background: rgba(255,255,255,0.06);
-  margin-top:8px;
 }
 
-.calSectionTitle{
-  font-weight:800;
-  font-size:14px;
-  opacity:.9;
-  margin-bottom:10px;
+.subCard{
+  margin-top: 12px;
+  padding: 12px;
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(255,255,255,0.06);
 }
 
-.calSectionTitleSmall{
-  margin-top:14px;
-  font-size:13px;
-  opacity:.8;
+.subCard.subtle{
+  background: rgba(255,255,255,0.03);
 }
 
-.calTodayList{
+.subHeader{
+  display:flex;
+  align-items:baseline;
+  justify-content:space-between;
+  gap:10px;
+  margin-bottom: 10px;
+}
+
+.subTitle{
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.subMeta{
+  font-size: 13px;
+  opacity: 0.75;
+}
+
+.calCards{
   display:flex;
   flex-direction:column;
   gap:10px;
 }
 
-.calTodayItem{
-  padding:10px 12px;
-  border-radius:14px;
-  background: rgba(255,255,255,0.06);
+.calCards.compact{
+  gap:8px;
 }
 
-.calTodayTime{
-  font-weight:800;
-  font-size:14px;
-  opacity:.95;
-  margin-bottom:2px;
+.eventCard{
+  border-radius: 14px;
+  padding: 10px 12px;
+  border: 1px solid rgba(255,255,255,0.10);
+  background: rgba(0,0,0,0.12);
 }
 
-.calTodayTitle{
-  font-size:14px;
-  opacity:.92;
-}
-
-.calUpcomingList{
-  margin-top:8px;
+.eventTop{
   display:flex;
-  flex-direction:column;
-  gap:10px;
-}
-
-.calUpItem{
-  display:flex;
-  gap:10px;
   align-items:flex-start;
-  padding:10px 12px;
-  border-radius:14px;
-  background: rgba(255,255,255,0.04);
+  justify-content:space-between;
+  gap:10px;
 }
 
-.calUpDate{
-  min-width:74px;
-  font-weight:800;
-  font-size:12px;
-  opacity:.85;
-  line-height:1.1;
+.eventTitle{
+  font-weight: 700;
+  line-height: 1.2;
 }
 
-.calUpMain{
-  flex:1;
+.eventTime{
+  font-variant-numeric: tabular-nums;
+  opacity: 0.9;
+  white-space: nowrap;
 }
 
-.calUpTime{
-  font-weight:800;
-  font-size:12px;
-  opacity:.9;
-  margin-bottom:2px;
+.eventLoc{
+  margin-top: 4px;
+  font-size: 13px;
+  opacity: 0.75;
 }
 
-.calUpTitle{
-  font-size:13px;
-  opacity:.9;
+.eventBadge{
+  display:inline-block;
+  margin-top: 8px;
+  font-size: 12px;
+  padding: 4px 8px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(255,255,255,0.06);
+  opacity: 0.9;
 }
+
+.calList{
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+}
+
+.calRow{
+  display:grid;
+  grid-template-columns: 90px 1fr;
+  gap:10px;
+  padding: 8px 10px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.08);
+  background: rgba(0,0,0,0.10);
+}
+
+.calLeft{
+  font-size: 12px;
+  opacity: 0.75;
+}
+
+.calRight{
+  font-size: 13px;
+}
+
+.calTime{
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+  margin-right: 8px;
+}
+
+.muted{ opacity: 0.65; }
