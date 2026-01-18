@@ -1,10 +1,5 @@
-/**
- * main.js
- * Charge les scripts des widgets APRÈS injection des HTML par include.js
- */
-
+// js/main.js
 (() => {
-  // ✅ Tes scripts sont dans /js/widget/
   const WIDGET_SCRIPTS = [
     "js/widget/clock.js",
     "js/widget/weather.js",
@@ -18,37 +13,35 @@
       const s = document.createElement("script");
       s.src = src;
       s.defer = true;
-      s.onload = () => resolve(src);
+      s.onload = resolve;
       s.onerror = () => reject(new Error(`Failed to load ${src}`));
       document.body.appendChild(s);
     });
   }
 
   async function boot() {
-    // 1) Attendre que include.js ait fini d'injecter les widgets HTML
+    // 1) attendre l’injection HTML
     if (!window.__WIDGETS_READY__) {
       await new Promise((resolve) =>
         window.addEventListener("widgets:ready", resolve, { once: true })
       );
     }
 
-    // 2) Charger les scripts widgets dans l'ordre
+    // 2) charger les scripts
     for (const src of WIDGET_SCRIPTS) {
       try {
         await loadScript(src);
-        console.log("✅ loaded", src);
       } catch (err) {
-        console.error("❌ Widget script error:", err);
+        console.error("❌ Script load error:", err);
       }
     }
 
-    // 3) (Optionnel) Si certains widgets exposent des init*, on les lance ici.
-    // -> Utile uniquement si tes fichiers ne sont PAS des IIFE.
-    if (window.initClock) window.initClock();
-    if (window.initWeather) window.initWeather();
-    if (window.initWedding) window.initWedding();
-    if (window.initBus) window.initBus();
-    if (window.initCalendar) window.initCalendar();
+    // 3) init explicites (ultra lisible)
+    try { window.initClock?.(); } catch (e) { console.error(e); }
+    try { window.initWeather?.(); } catch (e) { console.error(e); }
+    try { window.initWedding?.(); } catch (e) { console.error(e); }
+    try { window.initBus?.(); } catch (e) { console.error(e); }
+    try { window.initCalendar?.(); } catch (e) { console.error(e); }
 
     console.log("✅ Dashboard ready");
   }
