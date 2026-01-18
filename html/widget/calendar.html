@@ -1,22 +1,26 @@
-<div class="calendar today-only">
-  <div class="title">Calendrier</div>
+<div class="calendarSplit">
 
   <!-- AUJOURD'HUI -->
-  <div class="todayHeader">
-    <div>
-      <div class="calH1">Aujourd’hui</div>
-      <div class="todayDate" id="calTodayDate">—</div>
+  <div class="calBlock calToday">
+    <div class="todayHeader">
+      <div>
+        <div class="title" style="margin:0;">Aujourd’hui</div>
+        <div class="todayDate" id="calTodayDate">—</div>
+      </div>
+      <div class="todayBadge badge-green" id="calTodayBadge">—</div>
     </div>
-    <div class="todayBadge badge-green" id="calTodayBadge">—</div>
-  </div>
 
-  <div class="todayEvents" id="calTodayEvents">
-    <div class="small">Chargement...</div>
+    <div class="todayEvents" id="calTodayEvents">
+      <div class="small">Chargement…</div>
+    </div>
   </div>
 
   <!-- PROCHAINS JOURS -->
-  <div class="calSectionTitle">Prochains jours</div>
-  <div class="nextDays" id="calNextDays">
-    <div class="small">—</div>
+  <div class="calBlock calNext">
+    <div class="title" style="margin-bottom:10px;">Prochains événements</div>
+    <div class="nextList" id="calNextEvents">
+      <div class="small">Chargement…</div>
+    </div>
   </div>
+
 </div>
