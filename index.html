@@ -63,74 +63,16 @@
   </div>
 
 <!-- Calendrier -->
-<div class="card calendar">
-  <div class="titleRow">
-    <div class="title">Calendrier</div>
-    <div class="chip" id="calendarDateChip">—</div>
+<div class="card calendar today-only">
+  <div class="todayHeader">
+    <div>
+      <div class="title">Aujourd’hui</div>
+      <div class="todayDate" id="calendarDate">—</div>
+    </div>
+    <div class="todayBadge" id="calendarBadge">—</div>
   </div>
 
-  <!-- AUJOURD'HUI -->
-  <div class="subCard">
-    <div class="subHeader">
-      <div class="subTitle">Aujourd’hui</div>
-      <div class="subMeta" id="calendarTodayMeta">—</div>
-    </div>
-    <div class="calCards" id="calendarToday">
-      <div class="small muted">Chargement…</div>
-    </div>
-  </div>
-
-  <!-- DEMAIN -->
-  <div class="subCard subtle">
-    <div class="subHeader">
-      <div class="subTitle">Demain</div>
-      <div class="subMeta" id="calendarTomorrowMeta">—</div>
-    </div>
-    <div class="calCards compact" id="calendarTomorrow">
-      <div class="small muted">—</div>
-    </div>
-  </div>
-
-  <!-- À VENIR (optionnel) -->
-  <div class="subCard subtle">
-    <div class="subHeader">
-      <div class="subTitle">À venir</div>
-      <div class="subMeta">7 jours</div>
-    </div>
-    <div class="calList" id="calendarUpcoming">
-      <div class="small muted">—</div>
-    </div>
+  <div class="todayEvents" id="calendarToday">
+    <div class="small muted">Chargement…</div>
   </div>
 </div>
-
-    <!-- Date du jour -->
-    <div class="calendarDate" id="calendarDate">—</div>
-
-    <!-- Aujourd’hui -->
-    <div class="calendarSection">
-      <div class="sectionTitle">Aujourd’hui</div>
-      <div id="calendarToday" class="calendarList">
-        <div class="small muted">Chargement…</div>
-      </div>
-    </div>
-
-    <!-- À venir -->
-    <div class="calendarSection">
-      <div class="sectionTitle">À venir</div>
-      <div id="calendarUpcoming" class="calendarList small">
-        <div class="muted">—</div>
-      </div>
-    </div>
-  </div>
-
-</div>
-
-<!-- JS (ordre important) -->
-<script src="js/clock.js"></script>
-<script src="js/weather.js"></script>
-<script src="js/wedding.js"></script>
-<script src="js/bus.js"></script>
-<script src="js/calendar.js"></script>
-
-</body>
-</html>
