@@ -12,6 +12,7 @@ body {
    LAYOUT GRID (EXPLICITE)
    ========================= */
 
+
 .container {
   padding: 24px;
   display: grid;
