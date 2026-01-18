@@ -1,10 +1,11 @@
 /**
  * main.js
- * Charge les scripts widgets APRÈS injection HTML (include.js),
- * puis appelle initX().
+ * Charge les widgets (HTML via include.js) puis lance les scripts des widgets.
+ * IMPORTANT: adapte les chemins à ton arborescence (ici: js/widget/*.js)
  */
 
 (() => {
+  // Scripts widgets à charger après injection HTML
   const WIDGET_SCRIPTS = [
     "js/widget/clock.js",
     "js/widget/weather.js",
@@ -25,14 +26,14 @@
   }
 
   async function boot() {
-    // attendre include.js
+    // 1) Attendre que include.js ait injecté tous les widgets HTML
     if (!window.__WIDGETS_READY__) {
       await new Promise((resolve) =>
         window.addEventListener("widgets:ready", resolve, { once: true })
       );
     }
 
-    // charger scripts
+    // 2) Charger les scripts widgets dans l'ordre
     for (const src of WIDGET_SCRIPTS) {
       try {
         await loadScript(src);
@@ -41,15 +42,13 @@
       }
     }
 
-    // init
-    try { window.initClock?.(); } catch (e) { console.error(e); }
-    try { window.initWeather?.(); } catch (e) { console.error(e); }
-    try { window.initWedding?.(); } catch (e) { console.error(e); }
-    try { window.initBus?.(); } catch (e) { console.error(e); }
-    try { window.initCalendar?.(); } catch (e) { console.error(e); }
-
     console.log("✅ Dashboard ready");
   }
 
-  boot();
+  // Lancer quand le DOM est prêt (sécurité)
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", boot, { once: true });
+  } else {
+    boot();
+  }
 })();
