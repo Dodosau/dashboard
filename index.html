@@ -16,14 +16,14 @@
 
 <div class="container">
 
-  <!-- Heure -->
+  <!-- HEURE -->
   <div class="card clock">
     <div class="title">Maintenant</div>
     <div class="time" id="clock">--:--</div>
     <div class="date" id="date">—</div>
   </div>
 
-  <!-- Météo -->
+  <!-- MÉTÉO -->
   <div class="card weather">
     <div class="title">Météo – Montréal</div>
 
@@ -47,32 +47,35 @@
     </div>
   </div>
 
-  <!-- Mariage -->
+  <!-- MARIAGE -->
   <div class="card wedding">
     <div class="title">Mariage 💍</div>
     <div class="temp" id="weddingDays">—</div>
     <div class="small">jours avant le 17 juin 2026</div>
   </div>
 
-  <!-- STM Bus -->
-  <div class="card bus">
-    <div class="title">STM — Bus 55</div>
-    <div class="temp" id="busNext">—</div>
-    <div class="small" id="busNext2"></div>
-    <div class="small muted">Arrêt Saint-Laurent / Rachel</div>
-  </div>
-
-<!-- Calendrier -->
-<div class="card calendar today-only">
-  <div class="todayHeader">
-    <div>
-      <div class="title">Aujourd’hui</div>
-      <div class="todayDate" id="calendarDate">—</div>
+  <!-- CALENDRIER — AUJOURD’HUI (RECTANGLE UNIQUE) -->
+  <div class="card calendar today-only">
+    <div class="todayHeader">
+      <div>
+        <div class="title">Aujourd’hui</div>
+        <div class="todayDate" id="calendarDate">—</div>
+      </div>
+      <div class="todayBadge" id="calendarBadge">—</div>
     </div>
-    <div class="todayBadge" id="calendarBadge">—</div>
+
+    <div class="todayEvents" id="calendarToday">
+      <div class="small muted">Chargement…</div>
+    </div>
   </div>
 
-  <div class="todayEvents" id="calendarToday">
-    <div class="small muted">Chargement…</div>
-  </div>
 </div>
+
+<!-- JS (ordre important) -->
+<script src="js/clock.js"></script>
+<script src="js/weather.js"></script>
+<script src="js/wedding.js"></script>
+<script src="js/calendar.js"></script>
+
+</body>
+</html>
