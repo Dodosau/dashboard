@@ -3,19 +3,14 @@
 <head>
   <meta charset="utf-8">
   <title>Dashboard</title>
-
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- Reload de sécurité toutes les heures -->
-  <meta http-equiv="refresh" content="3600">
 
-  <!-- =========================
-       CSS
-       ========================= -->
-  <!-- Base & layout -->
+  <!-- CSS -->
   <link rel="stylesheet" href="css/base.css">
   <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/style.css">
 
-  <!-- Widgets -->
+  <!-- Widgets CSS -->
   <link rel="stylesheet" href="css/widget/clock.css">
   <link rel="stylesheet" href="css/widget/weather.css">
   <link rel="stylesheet" href="css/widget/wedding.css">
@@ -25,57 +20,27 @@
 
 <body>
 
-  <!-- =========================
-       CONTAINER GRID
-       ========================= -->
-  <div class="container">
+<div class="container">
 
-    <!-- ===== COLONNE GAUCHE ===== -->
-    <div class="leftColumn">
-
-      <!-- Horloge -->
-      <div class="card" data-include="html/widget/clock.html"></div>
-
-      <!-- Météo -->
-      <div class="card" data-include="html/widget/weather.html"></div>
-
-      <!-- Mariage -->
-      <div class="card" data-include="html/widget/wedding.html"></div>
-
-      <!-- STM -->
-      <div class="card" data-include="html/widget/bus.html"></div>
-
-    </div>
-
-    <!-- ===== COLONNE DROITE ===== -->
-    <div class="rightColumn">
-
-      <!-- Calendrier (toute la hauteur) -->
-      <div class="card calendarCard" data-include="html/widget/calendar.html"></div>
-
-    </div>
-
+  <!-- COLONNE GAUCHE -->
+  <div class="leftCol">
+    <div class="card" data-include="html/widget/clock.html"></div>
+    <div class="card" data-include="html/widget/weather.html"></div>
+    <div class="card" data-include="html/widget/wedding.html"></div>
+    <div class="card" data-include="html/widget/bus.html"></div>
   </div>
 
-  <!-- =========================
-       JS
-       ========================= -->
+  <!-- COLONNE DROITE -->
+  <div class="rightCol">
+    <div class="card" data-include="html/widget/calendar.html"></div>
+  </div>
 
-  <!-- Config globale -->
-  <script src="js/config.js"></script>
+</div>
 
-  <!-- HTML includes (doit venir AVANT main.js) -->
-  <script src="js/include.js"></script>
-
-  <!-- Orchestration -->
-  <script src="js/main.js"></script>
-
-  <!-- Widgets -->
-  <script src="js/widget/clock.js" defer></script>
-  <script src="js/widget/weather.js" defer></script>
-  <script src="js/widget/wedding.js" defer></script>
-  <script src="js/widget/bus.js" defer></script>
-  <script src="js/widget/calendar.js" defer></script>
+<!-- JS -->
+<script src="js/config.js"></script>
+<script src="js/include.js"></script>
+<script src="js/main.js"></script>
 
 </body>
 </html>
